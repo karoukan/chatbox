@@ -1,2 +1,4 @@
 # chatbox
-Chatbox HTML
+Chatbox HTML/CSS/JS
+
+Développé initialement pour un entretien d'embauche.
