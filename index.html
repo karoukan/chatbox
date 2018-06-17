@@ -1,0 +1,136 @@
+<!-- Ecrit par Renaud Caldini -->
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<link href="https://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+body {
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 0 20px;
+}
+
+.container {
+    border: 2px solid #dedede;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.container::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.time-right {
+    float: right;
+    color: #aaa;
+}
+</style>
+</head>
+<body>
+
+<h2>Chatbox HTML/CSS/JQUERY</h2><br />
+
+    <div class="container">
+      <div class="card-deck mb-3 text-center">
+	  
+       <div class="card mb-4 box-shadow">
+          <div class="card-header">
+            <h4 class="my-0 font-weight-normal" id="name1"></h4>
+          </div>
+          <div class="card-body">		
+			<div class="container">
+				<p id="clog_1"></p>
+			</div>
+			
+			<div class="input-group">
+				<input class="usrtx2 chatbox1 form-control">
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-lg  btn-primary" id="send_2">Envoyer</button>
+					</span>
+			</div>
+          </div>
+        </div>
+		
+       <div class="card mb-4 box-shadow">
+          <div class="card-header">
+            <h4 class="my-0 font-weight-normal" id="name2"></h4>
+          </div>
+          <div class="card-body">		
+			<div class="container">
+				<p id="clog_2"></p>
+			</div>
+			
+			<div class="input-group">
+				<input class="usrtx1 chatbox2 form-control">
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-lg btn-block btn-primary" id="send_1">Envoyer</button>
+					</span>
+			</div>
+          </div>
+        </div>
+      </div>
+	  </div>
+	  
+<script>
+
+	/*
+	* On demande les deux noms des utilisateurs
+	*/
+	var name1 = prompt('Nom utilisateur 1');
+	var name2 = prompt('Nom utilisateur 2');
+
+	var time = new Date();
+	var hours = time.getHours();
+	var min = time.getMinutes();
+	var sec = time.getSeconds;
+	
+	/*
+	 * Affichage des nicknames en haut des chatbox
+	*/
+	$("#name1").append($("<h4>").html(name1));
+	$("#name2").append($("<h4>").html(name2));
+
+function appendChat_2(e) 
+{
+	var id_btn = e.target.id;
+	var chk = $(".usertext_2").val() != "", isEnterKeypress = e.type == "keypress" && e.keyCode == 13, isSendClick = e.type == "click" && id_btn == "send_2";
+	
+	if(chk && (isEnterKeypress || isSendClick)) 
+	{
+		//On affiche le message de l'utilisateur & l'heure
+		var txt = "<span class='time-right'>("+hours+":"+min+")</span> <b>"+name1+" : </b>"+$(".usrtx2").val();
+		$("#clog_2").append($("<p>").html(txt));
+		$(".usertext_2").val("");
+	}
+}
+
+$("#send_2").click(appendChat_2);
+$(".chatbox2").keypress(appendChat_2);
+
+function appendChat_1(e) 
+{
+	var id_btn = e.target.id;
+	var chk = $(".usertext_1").val() != "", isEnterKeypress = e.type == "keypress" && e.keyCode == 13, isSendClick = e.type == "click" && id_btn == "send_1";
+
+	if(chk && (isEnterKeypress || isSendClick) ) 
+	{
+		//On affiche le message de l'utilisateur & l'heure
+		var txt = "<span class='time-right'>("+hours+":"+min+")</span> <b>"+name2+" : </b>"+$(".usrtx1").val();
+		$("#clog_1").append($("<p>").html(txt));
+		$(".usertext_1").val("");
+	}
+}
+
+$("#send_1").click(appendChat_1);
+$(".chatbox1").keypress(appendChat_1);
+
+</script>
+</body>
+</html>
